@@ -11,5 +11,9 @@
   "license": "MIT",
   "dependencies": {
     "buffer": "^6.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holonym-foundation/utils"
   }
 }
