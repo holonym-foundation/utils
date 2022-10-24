@@ -7,3 +7,5 @@ export function getStateAsHexString(state, countryCode) {
   const uint8Array = new TextEncoder("utf-8").encode(state);
   return "0x" + uint8Array.map((x) => x.toString(16).padStart(2, "0")).join("");
 }
+
+// TODO: Implement getDateAsHexString. See app.holonym.id-frontend for implementation
