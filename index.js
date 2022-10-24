@@ -1,4 +1,4 @@
-import { stateAbbreviations } from "./constants";
+import { stateAbbreviations } from "./constants.js";
 
 export function getStateAsHexString(state, countryCode) {
   // TODO: Support all countries and states/provinces
