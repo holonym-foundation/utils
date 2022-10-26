@@ -1,11 +1,17 @@
-import { stateAbbreviations } from "./constants.js";
+import assert from "assert";
 
-export function getStateAsHexString(state, countryCode) {
-  // TODO: Support all countries and states/provinces
-  if (!state || countryCode != 2) return "0x";
-  state = state.length == 2 ? state : stateAbbreviations[state.toUpperCase()];
-  const uint8Array = new TextEncoder("utf-8").encode(state);
-  return "0x" + uint8Array.map((x) => x.toString(16).padStart(2, "0")).join("");
+/**
+ * Convert date string to 3 bytes with the following structure:
+ * byte 1: number of years since 1900
+ * bytes 2-3: number of days after beginning of the given year
+ * @param {string} date Must be of form yyyy-mm-dd
+ */
+ export function getDateAsInt(date) {
+  // Format input
+  const [year, month, day] = date.split("-");
+  assert.ok(year && month && day); // Make sure Y M D all given
+  assert.ok((year >= 1900) && (year <= 2099)); // Make sure date is in a reasonable range, otherwise it's likely the input was malformatted and it's best to be safe by stopping -- we can always allow more edge cases if needed later 
+  const time = (new Date(date)).getTime() / 1000 + 2208988800 // 2208988800000 is 70 year offset; Unix timestamps below 1970 are negative and we want to allow from approximately 1900. 
+  assert.ok(!isNaN(time));
+  return time;
 }
-
-// TODO: Implement getDateAsHexString. See app.holonym.id-frontend for implementation
